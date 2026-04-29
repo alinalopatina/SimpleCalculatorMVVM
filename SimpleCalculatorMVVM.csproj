@@ -56,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Adapters\IScientificAdapter.cs" />
+    <Compile Include="Model\Adapters\ScientificAdapter.cs" />
     <Compile Include="Model\Commands\ActionCommand.cs" />
     <Compile Include="Model\Commands\BackspaceCommand.cs" />
     <Compile Include="Model\Commands\CommandInvoker.cs" />
@@ -64,6 +66,12 @@
     <Compile Include="Model\Commands\MemoryCommand.cs" />
     <Compile Include="Model\Commands\OperationCommand.cs" />
     <Compile Include="Model\Commands\ScientificCommand.cs" />
+    <Compile Include="Model\Composite\ButtonGroup.cs" />
+    <Compile Include="Model\Decorators\CacheDecorator.cs" />
+    <Compile Include="Model\Decorators\CalculatorDecorator.cs" />
+    <Compile Include="Model\Decorators\LoggingDecorator.cs" />
+    <Compile Include="Model\Decorators\ValidationDecorator.cs" />
+    <Compile Include="Model\Proxies\ScientificCalculatorProxy.cs" />
     <Compile Include="ViewModels\CalculatorViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -100,7 +108,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

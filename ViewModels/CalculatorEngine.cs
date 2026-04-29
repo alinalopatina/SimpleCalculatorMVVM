@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
-using SimpleCalculatorMVVM.Models.Adapters;
-using SimpleCalculatorMVVM.Models.Proxies;
 
 namespace SimpleCalculatorMVVM.Models
 {
@@ -21,32 +19,9 @@ namespace SimpleCalculatorMVVM.Models
         // История для отладки
         private List<string> history = new List<string>();
 
-        // ====================== ПРОКСИ ДЛЯ НАУЧНОГО КАЛЬКУЛЯТОРА ======================
-        private IScientificCalculator _scientificProxy;
-        private readonly object _proxyLock = new object();
-
-        private IScientificCalculator ScientificCalculator
-        {
-            get
-            {
-                if (_scientificProxy == null)
-                {
-                    lock (_proxyLock)
-                    {
-                        if (_scientificProxy == null)
-                        {
-                            System.Diagnostics.Debug.WriteLine("[PROXY] Ленивая инициализация научного калькулятора");
-                            _scientificProxy = new ScientificCalculatorProxy();
-                        }
-                    }
-                }
-                return _scientificProxy;
-            }
-        }
-
         public string CurrentInput => currentInput;
 
-        // ====================== ОСНОВНЫЕ МЕТОДЫ ======================
+        // ====================== ОСНОВНЫЕ МЕТОДЫ (без изменений) ======================
 
         public void ProcessDigitOrPoint(string content)
         {
@@ -131,8 +106,6 @@ namespace SimpleCalculatorMVVM.Models
             }
         }
 
-        // ====================== НАУЧНЫЕ ФУНКЦИИ (с использованием ADAPTER и PROXY) ======================
-
         public void ExecuteScientificFunction(string function)
         {
             if (string.IsNullOrEmpty(currentInput) || currentInput == "0")
@@ -144,42 +117,41 @@ namespace SimpleCalculatorMVVM.Models
                 double result = 0;
                 string operation = "";
 
-                // Используем адаптер через прокси
                 switch (function)
                 {
                     case "sin":
-                        result = ScientificCalculator.ComputeSin(num);
+                        result = Math.Sin(num * Math.PI / 180);
                         operation = $"sin({num}°)";
                         break;
                     case "cos":
-                        result = ScientificCalculator.ComputeCos(num);
+                        result = Math.Cos(num * Math.PI / 180);
                         operation = $"cos({num}°)";
                         break;
                     case "tan":
-                        result = ScientificCalculator.ComputeTan(num);
+                        result = Math.Tan(num * Math.PI / 180);
                         operation = $"tan({num}°)";
                         break;
                     case "ln":
                         if (num <= 0) throw new Exception("ln(x) требует x > 0");
-                        result = ScientificCalculator.ComputeLn(num);
+                        result = Math.Log(num);
                         operation = $"ln({num})";
                         break;
                     case "log":
                         if (num <= 0) throw new Exception("log(x) требует x > 0");
-                        result = ScientificCalculator.ComputeLog(num);
+                        result = Math.Log10(num);
                         operation = $"log({num})";
                         break;
                     case "√":
                         if (num < 0) throw new Exception("√(x) требует x ≥ 0");
-                        result = ScientificCalculator.ComputeSqrt(num);
+                        result = Math.Sqrt(num);
                         operation = $"√({num})";
                         break;
                     case "x²":
-                        result = ScientificCalculator.ComputePower2(num);
+                        result = num * num;
                         operation = $"{num}²";
                         break;
                     case "eˣ":
-                        result = ScientificCalculator.ComputeExp(num);
+                        result = Math.Exp(num);
                         operation = $"e^{num}";
                         break;
                 }
@@ -194,8 +166,6 @@ namespace SimpleCalculatorMVVM.Models
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
-        // ====================== МЕТОДЫ ПАМЯТИ ======================
 
         public void HandleMemoryOperation(string operation)
         {
@@ -230,8 +200,6 @@ namespace SimpleCalculatorMVVM.Models
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
-        // ====================== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ======================
 
         private void AddToHistory(string entry)
         {
@@ -355,7 +323,7 @@ namespace SimpleCalculatorMVVM.Models
             return text;
         }
 
-        // ====================== МЕТОДЫ ДЛЯ COMMAND (Undo/Redo) ======================
+        // ====================== НОВЫЕ МЕТОДЫ ДЛЯ COMMAND (Undo/Redo) ======================
 
         public string GetCurrentInput() => currentInput;
         public string GetPreviousInput() => previousInput;
