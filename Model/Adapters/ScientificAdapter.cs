@@ -2,13 +2,9 @@
 
 namespace SimpleCalculatorMVVM.Models.Adapters
 {
-    /// <summary>
-    /// Адаптер для научных функций
-    /// Адаптирует стандартные математические функции к интерфейсу IScientificCalculator
-    /// </summary>
+
     public class ScientificAdapter : IScientificCalculator
     {
-        // Адаптируемый объект (стандартный Math)
         private readonly MathAdapter _mathAdapter;
 
         public ScientificAdapter()
@@ -18,7 +14,6 @@ namespace SimpleCalculatorMVVM.Models.Adapters
 
         public double ComputeSin(double degrees)
         {
-            // Адаптация: градусы → радианы
             double radians = degrees * Math.PI / 180;
             return _mathAdapter.Sin(radians);
         }
@@ -67,12 +62,9 @@ namespace SimpleCalculatorMVVM.Models.Adapters
         }
     }
 
-    /// <summary>
-    /// Адаптируемый класс (может иметь другой интерфейс)
-    /// </summary>
+    /// Адаптируемый класс 
     public class MathAdapter
     {
-        // Эти методы могут иметь другие названия или сигнатуры
         public double Sin(double radians) => Math.Sin(radians);
         public double Cos(double radians) => Math.Cos(radians);
         public double Tan(double radians) => Math.Tan(radians);

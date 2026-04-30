@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using SimpleCalculatorMVVM.Models;
 using SimpleCalculatorMVVM.Models.Commands;
-using SimpleCalculatorMVVM.Models.Decorators;
 
 namespace SimpleCalculatorMVVM.ViewModels
 {
@@ -12,11 +11,6 @@ namespace SimpleCalculatorMVVM.ViewModels
         private CalculatorEngine _engine;
         private CommandInvoker _invoker;
         private string _display = "0";
-
-        // ====================== НАСТРОЙКИ ДЕКОРАТОРОВ ======================
-        private bool _enableLogging = true;      // Включить логирование команд
-        private bool _enableValidation = true;   // Включить валидацию ввода
-        private bool _enableCache = false;       // Включить кэширование (опционально)
 
         public string Display
         {
@@ -69,47 +63,29 @@ namespace SimpleCalculatorMVVM.ViewModels
                 return null;
             }
 
-            ICalculatorCommand command = null;
-
             // Цифры и точка
             if (content.Length == 1 && (char.IsDigit(content[0]) || content == "."))
-                command = new DigitCommand(_engine, content);
+                return new DigitCommand(_engine, content);
 
             // Операции
-            else if (content == "+" || content == "−" || content == "×" || content == "÷")
-                command = new OperationCommand(_engine, content);
-            else if (content == "=")
-                command = new OperationCommand(_engine, "=");
+            if (content == "+" || content == "−" || content == "×" || content == "÷")
+                return new OperationCommand(_engine, content);
+            if (content == "=")
+                return new OperationCommand(_engine, "=");
 
             // Научные функции
-            else if (System.Array.Exists(new[] { "sin", "cos", "tan", "ln", "log", "√", "x²", "eˣ" }, f => f == content))
-                command = new ScientificCommand(_engine, content);
+            if (System.Array.Exists(new[] { "sin", "cos", "tan", "ln", "log", "√", "x²", "eˣ" }, f => f == content))
+                return new ScientificCommand(_engine, content);
 
             // Память
-            else if (System.Array.Exists(new[] { "MC", "MR", "M+", "M-" }, m => m == content))
-                command = new MemoryCommand(_engine, content);
+            if (System.Array.Exists(new[] { "MC", "MR", "M+", "M-" }, m => m == content))
+                return new MemoryCommand(_engine, content);
 
             // Действия C, ±, %
-            else if (content == "C" || content == "±" || content == "%")
-                command = new ActionCommand(_engine, content);
+            if (content == "C" || content == "±" || content == "%")
+                return new ActionCommand(_engine, content);
 
-            // ====================== ПРИМЕНЕНИЕ ДЕКОРАТОРОВ ======================
-            if (command != null)
-            {
-                // Декоратор логирования (оборачивает команду для записи в лог)
-                if (_enableLogging)
-                    command = new LoggingDecorator(command, content);
-
-                // Декоратор валидации (только для цифр)
-                if (_enableValidation && content.Length == 1 && char.IsDigit(content[0]))
-                    command = new ValidationDecorator(command, content);
-
-                // Декоратор кэширования (для научных функций)
-                if (_enableCache && System.Array.Exists(new[] { "sin", "cos", "tan", "√", "x²" }, f => f == content))
-                    command = new CacheDecorator(command, content);
-            }
-
-            return command;
+            return null;
         }
 
         public void ProcessBackspace()

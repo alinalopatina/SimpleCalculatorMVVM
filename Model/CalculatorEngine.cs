@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using SimpleCalculatorMVVM.Models.Adapters;
-using SimpleCalculatorMVVM.Models.Proxies;
 
 namespace SimpleCalculatorMVVM.Models
 {
@@ -21,26 +20,18 @@ namespace SimpleCalculatorMVVM.Models
         // История для отладки
         private List<string> history = new List<string>();
 
-        // ====================== ПРОКСИ ДЛЯ НАУЧНОГО КАЛЬКУЛЯТОРА ======================
-        private IScientificCalculator _scientificProxy;
-        private readonly object _proxyLock = new object();
+        // ====================== АДАПТЕР (без Proxy) ======================
+        private IScientificCalculator _scientificAdapter;
 
         private IScientificCalculator ScientificCalculator
         {
             get
             {
-                if (_scientificProxy == null)
+                if (_scientificAdapter == null)
                 {
-                    lock (_proxyLock)
-                    {
-                        if (_scientificProxy == null)
-                        {
-                            System.Diagnostics.Debug.WriteLine("[PROXY] Ленивая инициализация научного калькулятора");
-                            _scientificProxy = new ScientificCalculatorProxy();
-                        }
-                    }
+                    _scientificAdapter = new ScientificAdapter();
                 }
-                return _scientificProxy;
+                return _scientificAdapter;
             }
         }
 
@@ -131,7 +122,7 @@ namespace SimpleCalculatorMVVM.Models
             }
         }
 
-        // ====================== НАУЧНЫЕ ФУНКЦИИ (с использованием ADAPTER и PROXY) ======================
+        // ====================== НАУЧНЫЕ ФУНКЦИИ (через Adapter) ======================
 
         public void ExecuteScientificFunction(string function)
         {
@@ -144,7 +135,6 @@ namespace SimpleCalculatorMVVM.Models
                 double result = 0;
                 string operation = "";
 
-                // Используем адаптер через прокси
                 switch (function)
                 {
                     case "sin":
