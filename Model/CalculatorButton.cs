@@ -4,9 +4,9 @@ using System.Windows.Media;
 
 namespace SimpleCalculatorMVVM.Models
 {
-
+    /// <summary>
     /// Базовый класс для всех кнопок калькулятора
-
+    /// </summary>
     public abstract class CalculatorButton
     {
         public string Name { get; protected set; }
@@ -18,12 +18,11 @@ namespace SimpleCalculatorMVVM.Models
         public bool IsScientific { get; protected set; } = false;
 
         public abstract void ApplyStyle(Button button);
-        // HandleClick удалён - в MVVM используется Command
     }
 
-
+    /// <summary>
     /// Кнопка с цифрой
-
+    /// </summary>
     public class NumberButton : CalculatorButton
     {
         public NumberButton(string name, string content, int row, int col, bool isScientific = false)
@@ -38,16 +37,15 @@ namespace SimpleCalculatorMVVM.Models
         public override void ApplyStyle(Button button)
         {
             button.Content = Content;
-            button.FontSize = 22;
-            button.Background = new SolidColorBrush(Colors.White);
-            button.BorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
-            button.Margin = new Thickness(3);
+            button.Style = (Style)Application.Current.Resources["NumberButtonStyle"];
+            if (RowSpan > 1) Grid.SetRowSpan(button, RowSpan);
+            if (ColumnSpan > 1) Grid.SetColumnSpan(button, ColumnSpan);
         }
     }
 
-
+    /// <summary>
     /// Кнопка операции (+, -, ×, ÷)
-
+    /// </summary>
     public class OperationButton : CalculatorButton
     {
         public OperationButton(string name, string content, int row, int col, bool isScientific = false)
@@ -62,18 +60,15 @@ namespace SimpleCalculatorMVVM.Models
         public override void ApplyStyle(Button button)
         {
             button.Content = Content;
-            button.FontSize = Content == "−" ? 28 : 24;
-            button.FontWeight = FontWeights.Bold;
-            button.Background = new SolidColorBrush(Color.FromRgb(255, 165, 0));
-            button.Foreground = new SolidColorBrush(Colors.White);
-            button.BorderBrush = new SolidColorBrush(Color.FromRgb(204, 136, 0));
-            button.Margin = new Thickness(3);
+            button.Style = (Style)Application.Current.Resources["OperatorButtonStyle"];
+            if (RowSpan > 1) Grid.SetRowSpan(button, RowSpan);
+            if (ColumnSpan > 1) Grid.SetColumnSpan(button, ColumnSpan);
         }
     }
 
-
+    /// <summary>
     /// Кнопка действия (C, ±, %, =)
-
+    /// </summary>
     public class ActionButton : CalculatorButton
     {
         public ActionButton(string name, string content, int row, int col, int colSpan = 1, bool isScientific = false)
@@ -88,30 +83,19 @@ namespace SimpleCalculatorMVVM.Models
 
         public override void ApplyStyle(Button button)
         {
-            if (Content == "↩" || Content == "↪")
-            {
-                button.Background = new SolidColorBrush(Colors.LightGreen);
-                button.FontSize = 24;
-            }
             button.Content = Content;
-            button.FontSize = Content == "C" ? 20 : (Content == "=" ? 26 : 20);
-            button.FontWeight = Content == "C" || Content == "=" ? FontWeights.Bold : FontWeights.Normal;
-            button.Background = Content == "=" ?
-                new SolidColorBrush(Color.FromRgb(255, 165, 0)) :
-                new SolidColorBrush(Color.FromRgb(229, 229, 229));
-            button.Foreground = Content == "=" ?
-                new SolidColorBrush(Colors.White) :
-                new SolidColorBrush(Colors.Black);
-            button.BorderBrush = Content == "=" ?
-                new SolidColorBrush(Color.FromRgb(204, 136, 0)) :
-                new SolidColorBrush(Color.FromRgb(204, 204, 204));
-            button.Margin = new Thickness(3);
+            if (Content == "=")
+                button.Style = (Style)Application.Current.Resources["EqualsButtonStyle"];
+            else
+                button.Style = (Style)Application.Current.Resources["ActionButtonStyle"];
+            if (RowSpan > 1) Grid.SetRowSpan(button, RowSpan);
+            if (ColumnSpan > 1) Grid.SetColumnSpan(button, ColumnSpan);
         }
     }
 
-
+    /// <summary>
     /// Научная кнопка (sin, cos, tan, и т.д.)
-
+    /// </summary>
     public class ScientificButton : CalculatorButton
     {
         public ScientificButton(string name, string content, int row, int col, bool isScientific = true)
@@ -126,17 +110,15 @@ namespace SimpleCalculatorMVVM.Models
         public override void ApplyStyle(Button button)
         {
             button.Content = Content;
-            button.FontSize = Content == "√" ? 20 : 16;
-            button.FontWeight = Content == "√" ? FontWeights.Bold : FontWeights.Normal;
-            button.Background = new SolidColorBrush(Color.FromRgb(224, 224, 224));
-            button.BorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
-            button.Margin = new Thickness(3);
+            button.Style = (Style)Application.Current.Resources["ScientificButtonStyle"];
+            if (RowSpan > 1) Grid.SetRowSpan(button, RowSpan);
+            if (ColumnSpan > 1) Grid.SetColumnSpan(button, ColumnSpan);
         }
     }
 
-
+    /// <summary>
     /// Кнопка памяти
-
+    /// </summary>
     public class MemoryButton : CalculatorButton
     {
         public MemoryButton(string name, string content, int row, int col, bool isScientific = true)
@@ -151,10 +133,9 @@ namespace SimpleCalculatorMVVM.Models
         public override void ApplyStyle(Button button)
         {
             button.Content = Content;
-            button.FontSize = 14;
-            button.Background = new SolidColorBrush(Color.FromRgb(208, 208, 208));
-            button.BorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
-            button.Margin = new Thickness(3);
+            button.Style = (Style)Application.Current.Resources["MemoryButtonStyle"];
+            if (RowSpan > 1) Grid.SetRowSpan(button, RowSpan);
+            if (ColumnSpan > 1) Grid.SetColumnSpan(button, ColumnSpan);
         }
     }
 }

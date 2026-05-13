@@ -8,6 +8,8 @@ namespace SimpleCalculatorMVVM.Models
 {
     public class CalculatorEngine
     {
+        // Событие для ошибок
+        public event Action OnError;
         private string currentInput = "";
         private string previousInput = "";
         private string currentOperation = "";
@@ -263,6 +265,9 @@ namespace SimpleCalculatorMVVM.Models
                             MessageBox.Show("Деление на ноль невозможно!", "Ошибка",
                                           MessageBoxButton.OK, MessageBoxImage.Warning);
                             ClearAll();
+
+                            // ВЫЗОВ ЗВУКА ОШИБКИ
+                            OnError?.Invoke();
                             return;
                         }
                         result = num1 / num2;
@@ -277,6 +282,9 @@ namespace SimpleCalculatorMVVM.Models
                 MessageBox.Show("Ошибка вычисления!", "Ошибка",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 ClearAll();
+
+                // ВЫЗОВ ЗВУКА ОШИБКИ
+                OnError?.Invoke();
             }
         }
 

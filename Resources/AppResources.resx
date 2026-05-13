@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="AppTitle" xml:space="preserve">
+    <value>Smart Calculator MVVM</value>
+  </data>
+  
+  <data name="StandardMode" xml:space="preserve">
+    <value>Стандартный</value>
+  </data>
+  
+  <data name="ScientificMode" xml:space="preserve">
+    <value>Научный</value>
+  </data>
+  
+  <data name="MemoryCleared" xml:space="preserve">
+    <value>Память очищена</value>
+  </data>
+  
+  <data name="ErrorDivisionByZero" xml:space="preserve">
+    <value>Деление на ноль невозможно!</value>
+  </data>
+  
+  <data name="ErrorInvalidInput" xml:space="preserve">
+    <value>Неверный ввод!</value>
+  </data>
+  
+  <data name="StatusReady" xml:space="preserve">
+    <value>Готов</value>
+  </data>
+  
+  <data name="ButtonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  
+  <data name="MenuFile" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  
+  <data name="MenuView" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  
+  <data name="MenuHelp" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  
+  <data name="MenuExit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  
+  <data name="MenuAbout" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  
+  <data name="HelpText" xml:space="preserve">
+    <value>Горячие клавиши:
+Ctrl+Z - Отменить
+Ctrl+Y - Повторить
+ESC - Очистить</value>
+  </data>
+</root>

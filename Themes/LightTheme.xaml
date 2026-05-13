@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- ========== СВЕТЛАЯ ТЕМА ========== -->
+
+	<SolidColorBrush x:Key="WindowBackground" Color="#F5F5F5"/>
+
+	<!-- Верхнее меню -->
+	<SolidColorBrush x:Key="MenuBackground" Color="#E8E8E8"/>
+	<SolidColorBrush x:Key="MenuForeground" Color="#333333"/>
+	<SolidColorBrush x:Key="MenuHighlightBackground" Color="#FF8C00"/>
+
+	<!-- Выпадающее меню -->
+	<SolidColorBrush x:Key="SubMenuBackground" Color="#FFFFFF"/>
+	<SolidColorBrush x:Key="SubMenuForeground" Color="#000000"/>
+
+	<SolidColorBrush x:Key="ToolBarBackground" Color="#E8E8E8"/>
+
+	<SolidColorBrush x:Key="StatusBarBackground" Color="#E8E8E8"/>
+	<SolidColorBrush x:Key="StatusBarForeground" Color="#333333"/>
+
+	<SolidColorBrush x:Key="DisplayBackground" Color="#FFFFFF"/>
+	<SolidColorBrush x:Key="DisplayForeground" Color="#000000"/>
+	<SolidColorBrush x:Key="DisplayBorderBrush" Color="#CCCCCC"/>
+
+	<SolidColorBrush x:Key="NumberButtonBackground" Color="#FFFFFF"/>
+	<SolidColorBrush x:Key="NumberButtonForeground" Color="#000000"/>
+	<SolidColorBrush x:Key="NumberButtonHoverBackground" Color="#F0F0F0"/>
+
+	<SolidColorBrush x:Key="OperatorButtonBackground" Color="#FF8C00"/>
+	<SolidColorBrush x:Key="OperatorButtonForeground" Color="#FFFFFF"/>
+	<SolidColorBrush x:Key="OperatorButtonHoverBackground" Color="#E07B00"/>
+
+	<SolidColorBrush x:Key="ActionButtonBackground" Color="#E0E0E0"/>
+	<SolidColorBrush x:Key="ActionButtonForeground" Color="#000000"/>
+	<SolidColorBrush x:Key="ActionButtonHoverBackground" Color="#D0D0D0"/>
+
+	<SolidColorBrush x:Key="ScientificButtonBackground" Color="#D0D0D0"/>
+	<SolidColorBrush x:Key="ScientificButtonForeground" Color="#000000"/>
+	<SolidColorBrush x:Key="ScientificButtonHoverBackground" Color="#C0C0C0"/>
+
+	<SolidColorBrush x:Key="MemoryButtonBackground" Color="#C8C8C8"/>
+	<SolidColorBrush x:Key="MemoryButtonForeground" Color="#000000"/>
+
+	<SolidColorBrush x:Key="EqualsButtonBackground" Color="#FF8C00"/>
+	<SolidColorBrush x:Key="EqualsButtonForeground" Color="#FFFFFF"/>
+
+</ResourceDictionary>
