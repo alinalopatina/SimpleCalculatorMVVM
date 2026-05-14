@@ -36,8 +36,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.4.7.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,16 +79,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Adapters\IScientificAdapter.cs" />
-    <Compile Include="Model\Adapters\ScientificAdapter.cs" />
-    <Compile Include="Model\Commands\ActionCommand.cs" />
-    <Compile Include="Model\Commands\BackspaceCommand.cs" />
-    <Compile Include="Model\Commands\CommandInvoker.cs" />
-    <Compile Include="Model\Commands\DigitCommand.cs" />
-    <Compile Include="Model\Commands\ICalculatorCommand.cs" />
-    <Compile Include="Model\Commands\MemoryCommand.cs" />
-    <Compile Include="Model\Commands\OperationCommand.cs" />
-    <Compile Include="Model\Commands\ScientificCommand.cs" />
+    <Compile Include="Models\Adapters\IScientificAdapter.cs" />
+    <Compile Include="Models\Adapters\ScientificAdapter.cs" />
+    <Compile Include="Models\Commands\ActionCommand.cs" />
+    <Compile Include="Models\AppConfig.cs" />
+    <Compile Include="Models\Commands\BackspaceCommand.cs" />
+    <Compile Include="Models\Commands\CommandInvoker.cs" />
+    <Compile Include="Models\Commands\DigitCommand.cs" />
+    <Compile Include="Models\Commands\ICalculatorCommand.cs" />
+    <Compile Include="Models\Commands\MemoryCommand.cs" />
+    <Compile Include="Models\Commands\OperationCommand.cs" />
+    <Compile Include="Models\Commands\ScientificCommand.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,9 +126,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ButtonFactory.cs" />
-    <Compile Include="Model\CalculatorButton.cs" />
-    <Compile Include="Model\CalculatorEngine.cs" />
+    <Compile Include="Models\ButtonFactory.cs" />
+    <Compile Include="Models\CalculatorButton.cs" />
+    <Compile Include="Models\CalculatorEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -127,15 +151,19 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Views\App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

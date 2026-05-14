@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:SimpleCalculatorMVVM.ViewModels"
-        Title="Smart Calculator MVVM" 
-        Height="800" Width="420"
+        Title="Smart Calculator MVVM"
+        Height="800" Width="520"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         FontFamily="{StaticResource MainFont}"
@@ -20,7 +20,7 @@
         <KeyBinding Key="Enter" Command="{Binding EqualsCommand}"/>
     </Window.InputBindings>
 
-    <Grid Margin="0,0,0,-56">
+    <Grid Margin="0,0,0,-16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -69,14 +69,13 @@
                 <TextBlock Text="☀️" FontSize="16"/>
             </Button>
             <Separator Style="{StaticResource ToolBarSeparatorStyle}"/>
-            <!-- КНОПКА ВКЛЮЧЕНИЯ/ВЫКЛЮЧЕНИЯ ЗВУКА -->
             <Button Command="{Binding ToggleSoundCommand}" ToolTip="Вкл/Выкл звук" Style="{StaticResource ToolBarButtonStyle}">
                 <TextBlock Text="{Binding SoundIcon}" FontSize="18"/>
             </Button>
         </ToolBar>
 
         <!-- Основной контент -->
-        <Grid Grid.Row="2" Margin="15">
+        <Grid Grid.Row="2" Margin="15,15,15,15" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -84,21 +83,21 @@
             </Grid.RowDefinitions>
 
             <!-- Дисплей -->
-            <Border Grid.Row="0" 
-                    Background="{DynamicResource DisplayBackground}" 
-                    CornerRadius="8" 
+            <Border Grid.Row="0"
+                    Background="{DynamicResource DisplayBackground}"
+                    CornerRadius="8"
                     Margin="0,0,0,15"
                     BorderBrush="{DynamicResource DisplayBorderBrush}"
                     BorderThickness="2">
                 <TextBox x:Name="DisplayTextBox"
-                         Text="{Binding Display, UpdateSourceTrigger=PropertyChanged}" 
-                         Height="80" 
+                         Text="{Binding Display, UpdateSourceTrigger=PropertyChanged}"
+                         Height="80"
                          Background="Transparent"
                          BorderThickness="0"
-                         FontSize="42" 
+                         FontSize="42"
                          FontFamily="{StaticResource DigitalFont}"
                          Foreground="{DynamicResource DisplayForeground}"
-                         TextAlignment="Right" 
+                         TextAlignment="Right"
                          VerticalContentAlignment="Center"
                          Padding="15"
                          IsReadOnly="True"/>
@@ -106,7 +105,6 @@
 
             <!-- Статусная строка -->
             <StatusBar Grid.Row="1" Style="{StaticResource StatusBarStyle}" Height="25" Margin="0,0,0,10">
-
                 <Separator/>
                 <Separator/>
                 <StatusBarItem>
@@ -131,26 +129,14 @@
                 </StatusBarItem>
             </StatusBar>
 
-            <!-- Сетка для кнопок -->
-            <Grid x:Name="ButtonsGrid" Grid.Row="2" Height="488" VerticalAlignment="Top">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <!-- Сетка для кнопок — без фиксированных размеров, строки/колонки создаются в коде -->
+            <Grid x:Name="ButtonsGrid"
+                  Grid.Row="2"
+                  Margin="0,0,10,0"
+                  VerticalAlignment="Top">
+                <!-- Row/Column definitions будут созданы динамически в CreateButtons() -->
             </Grid>
+
         </Grid>
     </Grid>
 </Window>
