@@ -1,0 +1,6 @@
+C:\Users\valer\Source\Repos\SimpleCalculatorMVVM.Core\bin\Release\SimpleCalculatorMVVM.Core.dll
+C:\Users\valer\Source\Repos\SimpleCalculatorMVVM.Core\bin\Release\SimpleCalculatorMVVM.Core.pdb
+C:\Users\valer\Source\Repos\SimpleCalculatorMVVM.Core\obj\Release\SimpleCalculatorMVVM.Core.csproj.AssemblyReference.cache
+C:\Users\valer\Source\Repos\SimpleCalculatorMVVM.Core\obj\Release\SimpleCalculatorMVVM.Core.csproj.CoreCompileInputs.cache
+C:\Users\valer\Source\Repos\SimpleCalculatorMVVM.Core\obj\Release\SimpleCalculatorMVVM.Core.dll
+C:\Users\valer\Source\Repos\SimpleCalculatorMVVM.Core\obj\Release\SimpleCalculatorMVVM.Core.pdb
