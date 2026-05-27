@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.6.11723.189 insiders
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36623.8 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorMVVM", "SimpleCalculatorMVVM.csproj", "{8B7F45BE-3026-4CC0-8E08-88D1088C63A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorMVVM.Core", "..\SimpleCalculatorMVVM.Core\SimpleCalculatorMVVM.Core.csproj", "{37DD1082-C622-47BD-BBCC-CF44378C6191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorMVVM.Expressions", "..\SimpleCalculatorMVVM.Expressions\SimpleCalculatorMVVM.Expressions.csproj", "{2011661B-10EC-4F0E-8145-D4EE0540984C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorMVVM.Memory", "..\SimpleCalculatorMVVM.Memory\SimpleCalculatorMVVM.Memory.csproj", "{A6AE2F2F-C688-4B1C-8B2A-CE43CB5975FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorMVVM.About", "..\SimpleCalculatorMVVM.About\SimpleCalculatorMVVM.About.csproj", "{618D9C4B-D09F-465C-A818-157680A72851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{8B7F45BE-3026-4CC0-8E08-88D1088C63A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B7F45BE-3026-4CC0-8E08-88D1088C63A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B7F45BE-3026-4CC0-8E08-88D1088C63A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37DD1082-C622-47BD-BBCC-CF44378C6191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37DD1082-C622-47BD-BBCC-CF44378C6191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37DD1082-C622-47BD-BBCC-CF44378C6191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37DD1082-C622-47BD-BBCC-CF44378C6191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2011661B-10EC-4F0E-8145-D4EE0540984C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2011661B-10EC-4F0E-8145-D4EE0540984C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2011661B-10EC-4F0E-8145-D4EE0540984C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2011661B-10EC-4F0E-8145-D4EE0540984C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6AE2F2F-C688-4B1C-8B2A-CE43CB5975FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6AE2F2F-C688-4B1C-8B2A-CE43CB5975FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6AE2F2F-C688-4B1C-8B2A-CE43CB5975FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6AE2F2F-C688-4B1C-8B2A-CE43CB5975FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{618D9C4B-D09F-465C-A818-157680A72851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{618D9C4B-D09F-465C-A818-157680A72851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{618D9C4B-D09F-465C-A818-157680A72851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{618D9C4B-D09F-465C-A818-157680A72851}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

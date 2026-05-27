@@ -79,8 +79,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Adapters\IScientificAdapter.cs" />
-    <Compile Include="Models\Adapters\ScientificAdapter.cs" />
     <Compile Include="Models\Commands\ActionCommand.cs" />
     <Compile Include="Models\AppConfig.cs" />
     <Compile Include="Models\Commands\BackspaceCommand.cs" />
@@ -164,6 +162,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleCalculatorMVVM.About\SimpleCalculatorMVVM.About.csproj">
+      <Project>{618d9c4b-d09f-465c-a818-157680a72851}</Project>
+      <Name>SimpleCalculatorMVVM.About</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleCalculatorMVVM.Core\SimpleCalculatorMVVM.Core.csproj">
+      <Project>{37dd1082-c622-47bd-bbcc-cf44378c6191}</Project>
+      <Name>SimpleCalculatorMVVM.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleCalculatorMVVM.Expressions\SimpleCalculatorMVVM.Expressions.csproj">
+      <Project>{2011661b-10ec-4f0e-8145-d4ee0540984c}</Project>
+      <Name>SimpleCalculatorMVVM.Expressions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleCalculatorMVVM.Memory\SimpleCalculatorMVVM.Memory.csproj">
+      <Project>{a6ae2f2f-c688-4b1c-8b2a-ce43cb5975fb}</Project>
+      <Name>SimpleCalculatorMVVM.Memory</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

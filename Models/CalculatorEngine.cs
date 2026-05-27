@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
-using SimpleCalculatorMVVM.Models.Adapters;
+using System.Runtime.InteropServices;
+using SimpleCalculatorMVVM.Core;
+using SimpleCalculatorMVVM.Expressions;
+using SimpleCalculatorMVVM.Memory;
 
 namespace SimpleCalculatorMVVM.Models
 {
@@ -10,34 +13,110 @@ namespace SimpleCalculatorMVVM.Models
     {
         // Событие для ошибок
         public event Action OnError;
+
         private string currentInput = "";
         private string previousInput = "";
         private string currentOperation = "";
         private bool isNewInput = true;
         private bool operationPerformed = false;
 
-        // Память
-        private double memory = 0;
+        // ====================== ИСПОЛЬЗОВАНИЕ БИБЛИОТЕК ======================
 
-        // История для отладки
+        // 1. Статическая библиотека Core
+        private readonly IScientificCalculator _scientificCalculator;
+
+        // 2. Динамическая библиотека Memory (динамический вызов)
+        private IMemoryManager _memoryManager;
+        private IntPtr _memoryDllHandle;
+
+        // История
         private List<string> history = new List<string>();
 
-        // ====================== АДАПТЕР (без Proxy) ======================
-        private IScientificCalculator _scientificAdapter;
+        public string CurrentInput => currentInput;
 
-        private IScientificCalculator ScientificCalculator
+        // ====================== КОНСТРУКТОР ======================
+
+        public CalculatorEngine()
         {
-            get
+            // Инициализация статической библиотеки Core
+            _scientificCalculator = new ScientificCalculator();
+
+            // Загрузка динамической библиотеки Memory
+            LoadMemoryLibraryDynamically();
+        }
+
+        // ====================== ЗАГРУЗКА DLL ДИНАМИЧЕСКИ ======================
+
+        private void LoadMemoryLibraryDynamically()
+        {
+            try
             {
-                if (_scientificAdapter == null)
+                string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string dllPath = System.IO.Path.Combine(exeDirectory, "SimpleCalculatorMVVM.Memory.dll");
+
+                if (!System.IO.File.Exists(dllPath))
                 {
-                    _scientificAdapter = new ScientificAdapter();
+                    dllPath = System.IO.Path.Combine(Environment.CurrentDirectory, "SimpleCalculatorMVVM.Memory.dll");
                 }
-                return _scientificAdapter;
+
+                if (!System.IO.File.Exists(dllPath))
+                {
+                    dllPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                        @"..\..\..\SimpleCalculatorMVVM.Memory\bin\Debug\SimpleCalculatorMVVM.Memory.dll");
+                }
+
+                if (System.IO.File.Exists(dllPath))
+                {
+                    _memoryDllHandle = LoadLibrary(dllPath);
+
+                    if (_memoryDllHandle != IntPtr.Zero)
+                    {
+                        IntPtr createFuncPtr = GetProcAddress(_memoryDllHandle, "CreateMemoryManager");
+
+                        if (createFuncPtr != IntPtr.Zero)
+                        {
+                            var createMemoryManager = (CreateMemoryManagerDelegate)Marshal.GetDelegateForFunctionPointer(
+                                createFuncPtr, typeof(CreateMemoryManagerDelegate));
+
+                            _memoryManager = createMemoryManager();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Ошибка загрузки DLL памяти: {ex.Message}");
+            }
+
+            if (_memoryManager == null)
+            {
+                _memoryManager = new FallbackMemoryManager();
             }
         }
 
-        public string CurrentInput => currentInput;
+        private delegate IMemoryManager CreateMemoryManagerDelegate();
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr LoadLibrary(string lpFileName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+        private static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool FreeLibrary(IntPtr hModule);
+
+        private class FallbackMemoryManager : IMemoryManager
+        {
+            private double _memory = 0;
+            public double MemoryValue => _memory;
+            public void Clear() => _memory = 0;
+            public double Recall() => _memory;
+            public void Add(double value) => _memory += value;
+            public void Subtract(double value) => _memory -= value;
+            public void Store(double value) => _memory = value;
+            public string GetMemoryStatus() => _memory == 0 ? "M: пусто" : $"M: {_memory}";
+            public bool HasValue() => Math.Abs(_memory) > double.Epsilon;
+        }
 
         // ====================== ОСНОВНЫЕ МЕТОДЫ ======================
 
@@ -124,7 +203,7 @@ namespace SimpleCalculatorMVVM.Models
             }
         }
 
-        // ====================== НАУЧНЫЕ ФУНКЦИИ (через Adapter) ======================
+        // ====================== НАУЧНЫЕ ФУНКЦИИ (через библиотеку Core) ======================
 
         public void ExecuteScientificFunction(string function)
         {
@@ -140,38 +219,35 @@ namespace SimpleCalculatorMVVM.Models
                 switch (function)
                 {
                     case "sin":
-                        result = ScientificCalculator.ComputeSin(num);
+                        result = _scientificCalculator.ComputeSin(num);
                         operation = $"sin({num}°)";
                         break;
                     case "cos":
-                        result = ScientificCalculator.ComputeCos(num);
+                        result = _scientificCalculator.ComputeCos(num);
                         operation = $"cos({num}°)";
                         break;
                     case "tan":
-                        result = ScientificCalculator.ComputeTan(num);
+                        result = _scientificCalculator.ComputeTan(num);
                         operation = $"tan({num}°)";
                         break;
                     case "ln":
-                        if (num <= 0) throw new Exception("ln(x) требует x > 0");
-                        result = ScientificCalculator.ComputeLn(num);
+                        result = _scientificCalculator.ComputeLn(num);
                         operation = $"ln({num})";
                         break;
                     case "log":
-                        if (num <= 0) throw new Exception("log(x) требует x > 0");
-                        result = ScientificCalculator.ComputeLog(num);
+                        result = _scientificCalculator.ComputeLog(num);
                         operation = $"log({num})";
                         break;
                     case "√":
-                        if (num < 0) throw new Exception("√(x) требует x ≥ 0");
-                        result = ScientificCalculator.ComputeSqrt(num);
+                        result = _scientificCalculator.ComputeSqrt(num);
                         operation = $"√({num})";
                         break;
                     case "x²":
-                        result = ScientificCalculator.ComputePower2(num);
+                        result = _scientificCalculator.ComputePower2(num);
                         operation = $"{num}²";
                         break;
                     case "eˣ":
-                        result = ScientificCalculator.ComputeExp(num);
+                        result = _scientificCalculator.ComputeExp(num);
                         operation = $"e^{num}";
                         break;
                 }
@@ -184,10 +260,11 @@ namespace SimpleCalculatorMVVM.Models
             {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
+                OnError?.Invoke();
             }
         }
 
-        // ====================== МЕТОДЫ ПАМЯТИ ======================
+        // ====================== МЕТОДЫ ПАМЯТИ (через динамическую DLL) ======================
 
         public void HandleMemoryOperation(string operation)
         {
@@ -199,20 +276,24 @@ namespace SimpleCalculatorMVVM.Models
                 switch (operation)
                 {
                     case "MC":
-                        memory = 0;
-                        MessageBox.Show("Память очищена", "MC", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _memoryManager.Clear();
+                        MessageBox.Show("Память очищена", "MC",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                     case "MR":
-                        currentInput = memory.ToString(CultureInfo.CurrentCulture);
+                        double memoryValue = _memoryManager.Recall();
+                        currentInput = memoryValue.ToString(CultureInfo.CurrentCulture);
                         isNewInput = true;
                         break;
                     case "M+":
-                        memory += current;
-                        MessageBox.Show($"Добавлено в память: {memory}", "M+", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _memoryManager.Add(current);
+                        MessageBox.Show($"Добавлено в память: {_memoryManager.MemoryValue}", "M+",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                     case "M-":
-                        memory -= current;
-                        MessageBox.Show($"Вычтено из памяти: {memory}", "M-", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _memoryManager.Subtract(current);
+                        MessageBox.Show($"Вычтено из памяти: {_memoryManager.MemoryValue}", "M-",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                 }
             }
@@ -220,6 +301,7 @@ namespace SimpleCalculatorMVVM.Models
             {
                 MessageBox.Show($"Ошибка памяти: {ex.Message}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
+                OnError?.Invoke();
             }
         }
 
@@ -260,13 +342,11 @@ namespace SimpleCalculatorMVVM.Models
                     case "-": result = num1 - num2; break;
                     case "*": result = num1 * num2; break;
                     case "/":
-                        if (num2 == 0)
+                        if (Math.Abs(num2) < double.Epsilon)
                         {
                             MessageBox.Show("Деление на ноль невозможно!", "Ошибка",
                                           MessageBoxButton.OK, MessageBoxImage.Warning);
                             ClearAll();
-
-                            // ВЫЗОВ ЗВУКА ОШИБКИ
                             OnError?.Invoke();
                             return;
                         }
@@ -277,13 +357,11 @@ namespace SimpleCalculatorMVVM.Models
                 currentInput = result.ToString(CultureInfo.CurrentCulture);
                 previousInput = "";
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Ошибка вычисления!", "Ошибка",
+                MessageBox.Show($"Ошибка вычисления: {ex.Message}", "Ошибка",
                               MessageBoxButton.OK, MessageBoxImage.Error);
                 ClearAll();
-
-                // ВЫЗОВ ЗВУКА ОШИБКИ
                 OnError?.Invoke();
             }
         }

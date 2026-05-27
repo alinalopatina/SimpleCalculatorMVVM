@@ -2,6 +2,7 @@
 using System.Resources;
 using System.Reflection;
 using System.Windows;
+using SimpleCalculatorMVVM.About;  // ← ДОБАВЛЕНО
 
 namespace SimpleCalculatorMVVM.Views
 {
@@ -16,7 +17,39 @@ namespace SimpleCalculatorMVVM.Views
             // Динамическая загрузка ресурсов
             LoadResourcesDynamically();
 
+            // Использование статической библиотеки About
+            LoadDeveloperInfo();
+
             BtnOK.Click += (s, e) => Close();
+        }
+
+        private void LoadDeveloperInfo()
+        {
+            try
+            {
+                // Информация из библиотеки About
+                TitleText.Text = DeveloperInfo.ProductName;
+
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                if (version != null)
+                {
+                    VersionText.Text = $"Версия {DeveloperInfo.Version} (build {version.Revision})";
+                }
+                else
+                {
+                    VersionText.Text = $"Версия {DeveloperInfo.Version}";
+                }
+
+                // Можно добавить отображение разработчиков
+                // var developers = DeveloperInfo.GetDevelopers();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Ошибка загрузки информации о разработчиках: {ex.Message}");
+                // Запасные значения
+                TitleText.Text = "Smart Calculator MVVM";
+                VersionText.Text = "Версия 2.0.0";
+            }
         }
 
         private void LoadResourcesDynamically()
@@ -30,11 +63,6 @@ namespace SimpleCalculatorMVVM.Views
                 string appTitle = _resourceManager.GetString("AppTitle");
                 if (!string.IsNullOrEmpty(appTitle))
                     TitleText.Text = appTitle;
-
-                var version = Assembly.GetExecutingAssembly().GetName().Version;
-                VersionText.Text = version != null
-                    ? $"Версия {version}"
-                    : "Версия 2.0.0";
             }
             catch (Exception ex)
             {

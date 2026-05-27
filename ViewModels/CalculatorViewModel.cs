@@ -9,6 +9,7 @@ using System.Media;
 using SimpleCalculatorMVVM.Models;
 using SimpleCalculatorMVVM.Models.Commands;
 using SimpleCalculatorMVVM.Views;
+using SimpleCalculatorMVVM.About;
 
 namespace SimpleCalculatorMVVM.ViewModels
 {
@@ -27,6 +28,10 @@ namespace SimpleCalculatorMVVM.ViewModels
         // Звук
         private bool _soundEnabled = true;
         private string _soundIcon = "🔊";
+
+        // Звуковой плеер (для собственных звуков)
+        private SoundPlayer _clickPlayer;
+        private SoundPlayer _errorPlayer;
 
         // Команды
         public ICommand ButtonCommand { get; }
@@ -87,7 +92,12 @@ namespace SimpleCalculatorMVVM.ViewModels
         public bool SoundEnabled
         {
             get => _soundEnabled;
-            set { _soundEnabled = value; OnPropertyChanged(); }
+            set
+            {
+                _soundEnabled = value;
+                OnPropertyChanged();
+                StatusText = SoundEnabled ? "Звук включён" : "Звук выключен";
+            }
         }
 
         public string SoundIcon
@@ -105,24 +115,32 @@ namespace SimpleCalculatorMVVM.ViewModels
             _engine = new CalculatorEngine();
             _invoker = new CommandInvoker();
 
+            // Инициализация звуков
+            InitializeSounds();
+
+            // Подписка на событие ошибки (для звука ошибки)
+            _engine.OnError += PlayErrorSound;
+
             // Динамическая загрузка ресурсов
             LoadResourcesDynamically();
 
             // Инициализация команд
             ButtonCommand = new RelayCommand(OnButtonClick);
-            UndoCommand = new RelayCommand(_ => { _invoker.Undo(); UpdateDisplay(); });
-            RedoCommand = new RelayCommand(_ => { _invoker.Redo(); UpdateDisplay(); });
+            UndoCommand = new RelayCommand(_ => { _invoker.Undo(); UpdateDisplay(); PlayClickSound(); });
+            RedoCommand = new RelayCommand(_ => { _invoker.Redo(); UpdateDisplay(); PlayClickSound(); });
             ClearCommand = new RelayCommand(_ =>
             {
                 var cmd = new ActionCommand(_engine, "C");
                 cmd.Execute();
                 UpdateDisplay();
+                PlayClickSound();
             });
             EqualsCommand = new RelayCommand(_ =>
             {
                 var cmd = new OperationCommand(_engine, "=");
                 cmd.Execute();
                 UpdateDisplay();
+                PlayClickSound();
             });
             SwitchToStandardCommand = new RelayCommand(_ => SwitchMode("Standard"));
             SwitchToScientificCommand = new RelayCommand(_ => SwitchMode("Scientific"));
@@ -131,6 +149,75 @@ namespace SimpleCalculatorMVVM.ViewModels
             SetDarkThemeCommand = new RelayCommand(_ => SwitchToDarkTheme());
             SetLightThemeCommand = new RelayCommand(_ => SwitchToLightTheme());
             ToggleSoundCommand = new RelayCommand(_ => ToggleSound());
+        }
+
+        /// <summary>
+        /// Инициализация звуковых эффектов
+        /// </summary>
+        private void InitializeSounds()
+        {
+            try
+            {
+                // Использование встроенных системных звуков Windows
+                _clickPlayer = new SoundPlayer();
+                _errorPlayer = new SoundPlayer();
+
+                // Можно загрузить собственные звуки из ресурсов
+                // if (Properties.Resources.click_sound != null)
+                //     _clickPlayer.Stream = new System.IO.MemoryStream(Properties.Resources.click_sound);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Ошибка инициализации звука: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Воспроизведение звука нажатия кнопки
+        /// </summary>
+        private void PlayClickSound()
+        {
+            if (!SoundEnabled) return;
+
+            try
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.silent_short_click);
+                player.Play();
+            }
+            catch { /* Игнорируем ошибки */ }
+        }
+
+        /// <summary>
+        /// Воспроизведение звука ошибки
+        /// </summary>
+        private void PlayErrorSound()
+        {
+            if (!SoundEnabled) return;
+
+            try
+            {
+                // Звук ошибки (более резкий)
+                SystemSounds.Hand.Play();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Ошибка воспроизведения звука ошибки: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Переключение звука
+        /// </summary>
+        private void ToggleSound()
+        {
+            SoundEnabled = !SoundEnabled;
+            SoundIcon = SoundEnabled ? "🔊" : "🔇";
+
+            // Воспроизвести тестовый звук при включении
+            if (SoundEnabled)
+            {
+                PlayClickSound();
+            }
         }
 
         private void LoadResourcesDynamically()
@@ -156,6 +243,7 @@ namespace SimpleCalculatorMVVM.ViewModels
             CurrentMode = mode == "Standard" ? "Стандартный" : "Научный";
             StatusText = $"Переключен в режим: {CurrentMode}";
             OnRequestModeSwitch?.Invoke(mode);
+            PlayClickSound();
         }
 
         private void SwitchToDarkTheme()
@@ -163,6 +251,7 @@ namespace SimpleCalculatorMVVM.ViewModels
             ApplyTheme("Themes/DarkTheme.xaml");
             CurrentTheme = "Тёмная";
             StatusText = "Тёмная тема активирована";
+            PlayClickSound();
         }
 
         private void SwitchToLightTheme()
@@ -170,6 +259,7 @@ namespace SimpleCalculatorMVVM.ViewModels
             ApplyTheme("Themes/LightTheme.xaml");
             CurrentTheme = "Светлая";
             StatusText = "Светлая тема активирована";
+            PlayClickSound();
         }
 
         private void ApplyTheme(string themePath)
@@ -206,34 +296,14 @@ namespace SimpleCalculatorMVVM.ViewModels
             var dialog = new AboutDialog();
             dialog.Owner = Application.Current.MainWindow;
             dialog.ShowDialog();
-        }
-
-        // ВОСПРОИЗВЕДЕНИЕ ЗВУКА (системный, без скачивания файлов)
-      
-        private void PlayClickSound()
-        {
-            if (!SoundEnabled) return;
-
-            try
-            {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.silent_short_click);
-                player.Play();
-            }
-            catch { /* Игнорируем ошибки */ }
-        }
-
-        private void ToggleSound()
-        {
-            SoundEnabled = !SoundEnabled;
-            SoundIcon = SoundEnabled ? "🔊" : "🔇";
-            StatusText = SoundEnabled ? "Звук включён" : "Звук выключен";
+            PlayClickSound();
         }
 
         private void OnButtonClick(object parameter)
         {
             if (parameter is not string content) return;
 
-            // ВОСПРОИЗВЕДЕНИЕ ЗВУКА ПРИ НАЖАТИИ НА КНОПКУ
+            // Воспроизведение звука при нажатии кнопки
             PlayClickSound();
 
             ICalculatorCommand command = CreateCommand(content);
@@ -290,6 +360,7 @@ namespace SimpleCalculatorMVVM.ViewModels
             var command = new BackspaceCommand(_engine);
             _invoker.ExecuteCommand(command);
             UpdateDisplay();
+            PlayClickSound();
         }
 
         public CalculatorEngine GetEngine() => _engine;
@@ -300,11 +371,14 @@ namespace SimpleCalculatorMVVM.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        // Освобождение ресурсов
         public void Dispose()
         {
             _resourceManager?.ReleaseAllResources();
             _invoker?.Clear();
+
+            // Освобождение звуковых ресурсов
+            _clickPlayer?.Dispose();
+            _errorPlayer?.Dispose();
         }
     }
 }

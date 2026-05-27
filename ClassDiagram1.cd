@@ -1,164 +1,207 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SimpleCalculatorMVVM.App" Collapsed="true">
-    <Position X="13.75" Y="0.5" Width="1.5" />
+    <Position X="15.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimpleCalculatorMVVM.Models.ButtonFactory" Collapsed="true">
+  <Class Name="SimpleCalculatorMVVM.Models.Adapters.ScientificAdapter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAQAAAAAAAAAAAAAABAEAgAAAgAAAAAAAAABAA=</HashCode>
+      <FileName>Models\Adapters\ScientificAdapter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimpleCalculatorMVVM.Models.Adapters.MathAdapter" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAAgAAAAAAAEAAAAAA0AAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Adapters\ScientificAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCalculatorMVVM.Models.AppConfig" Collapsed="true">
     <Position X="17.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
+      <HashCode>AAAAgAAAAAACAAAQAAAAAgAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AppConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCalculatorMVVM.Models.ButtonFactory" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
-      <FileName>Model\ButtonFactory.cs</FileName>
+      <FileName>Models\ButtonFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.CalculatorButton" Collapsed="true">
     <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAABCAAQQAAAAAgBAAgAAAAAAAAA=</HashCode>
-      <FileName>Model\CalculatorButton.cs</FileName>
+      <FileName>Models\CalculatorButton.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimpleCalculatorMVVM.Models.NumberButton" Collapsed="true">
-    <Position X="7.25" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\CalculatorButton.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SimpleCalculatorMVVM.Models.OperationButton" Collapsed="true">
-    <Position X="9.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\CalculatorButton.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="SimpleCalculatorMVVM.Models.ActionButton" Collapsed="true">
+  <Class Name="SimpleCalculatorMVVM.Models.NumberButton">
     <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\CalculatorButton.cs</FileName>
+      <FileName>Models\CalculatorButton.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimpleCalculatorMVVM.Models.ScientificButton" Collapsed="true">
+  <Class Name="SimpleCalculatorMVVM.Models.OperationButton">
     <Position X="2.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\CalculatorButton.cs</FileName>
+      <FileName>Models\CalculatorButton.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimpleCalculatorMVVM.Models.MemoryButton" Collapsed="true">
+  <Class Name="SimpleCalculatorMVVM.Models.ActionButton">
     <Position X="5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\CalculatorButton.cs</FileName>
+      <FileName>Models\CalculatorButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCalculatorMVVM.Models.ScientificButton">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CalculatorButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCalculatorMVVM.Models.MemoryButton">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CalculatorButton.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.CalculatorEngine" Collapsed="true">
-    <Position X="12" Y="1.5" Width="1.5" />
+    <Position X="15.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAFAABAAAEAIAABQCCQAAAAAAAArECRADADEgBIBAhA=</HashCode>
-      <FileName>Model\CalculatorEngine.cs</FileName>
+      <HashCode>BAFAABAAAECIAABQCKQAAIAAAAArECRADADEgBIBAhA=</HashCode>
+      <FileName>Models\CalculatorEngine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.Commands.ActionCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12" Y="0.5" Width="1.5" />
+    <Position X="13.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAAIAABAQAAAAAAAAAAgAAAAAIAAEAgAQAAAA=</HashCode>
-      <FileName>Model\Commands\ActionCommand.cs</FileName>
+      <FileName>Models\Commands\ActionCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.Commands.BackspaceCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="15.5" Y="0.5" Width="1.5" />
+    <Position X="12" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAQEAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
-      <FileName>Model\Commands\BackspaceCommand.cs</FileName>
+      <FileName>Models\Commands\BackspaceCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.Commands.CommandInvoker" Collapsed="true">
-    <Position X="15.5" Y="1.5" Width="1.5" />
+    <Position X="19" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIIAAAAAAAAEBAAAAAAAAAABAAAAAAAAAAAAAABAAAA=</HashCode>
-      <FileName>Model\Commands\CommandInvoker.cs</FileName>
+      <FileName>Models\Commands\CommandInvoker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.Commands.DigitCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="17.25" Y="1.5" Width="1.5" />
+    <Position X="12" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAQEAAAAAAAAAAAAAAAIAAAAAAAAAAg=</HashCode>
-      <FileName>Model\Commands\DigitCommand.cs</FileName>
+      <FileName>Models\Commands\DigitCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.Commands.MemoryCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="2.5" Width="1.5" />
+    <Position X="17.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAQEAAAABAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
-      <FileName>Model\Commands\MemoryCommand.cs</FileName>
+      <FileName>Models\Commands\MemoryCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.Commands.OperationCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="15.5" Y="2.5" Width="1.5" />
+    <Position X="19" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAAIAABAQAAAAABAAAAAAAAAAIAAEAAAQAAAA=</HashCode>
-      <FileName>Model\Commands\OperationCommand.cs</FileName>
+      <FileName>Models\Commands\OperationCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SimpleCalculatorMVVM.Models.Commands.ScientificCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="3.5" Width="1.5" />
+    <Position X="17.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAQEAAAAAAAAAAAAAAAJAAAAAAAAAAA=</HashCode>
-      <FileName>Model\Commands\ScientificCommand.cs</FileName>
+      <FileName>Models\Commands\ScientificCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SimpleCalculatorMVVM.Properties.Resources" Collapsed="true">
-    <Position X="12" Y="3.5" Width="1.5" />
+    <Position X="13.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAQAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="SimpleCalculatorMVVM.Properties.Settings" Collapsed="true">
-    <Position X="15.5" Y="3.5" Width="1.5" />
+    <Position X="19" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="SimpleCalculatorMVVM.ViewModels.CalculatorViewModel" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13.75" Y="1.5" Width="1.5" />
+  <Class Name="SimpleCalculatorMVVM.Resources.AppResources" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAFAAAAAAAAAAAAIAAEAQAAgIAAICJIAAABAAAAAAA=</HashCode>
+      <HashCode>AQACAAEAAAgAAAAAAAABEAAAAQYIAIAAAECAiAAAUIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleCalculatorMVVM.ViewModels.CalculatorViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>OAAlABgAQCICEIACIIhEAQEYoYABICJMAiAFgAAFRFA=</HashCode>
       <FileName>ViewModels\CalculatorViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="SimpleCalculatorMVVM.ViewModels.RelayCommand" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="17.25" Y="2.5" Width="1.5" />
+    <Position X="12" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\RelayCommand.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="SimpleCalculatorMVVM.Views.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12" Y="2.5" Width="1.5" />
+  <Class Name="SimpleCalculatorMVVM.Views.AboutDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Views\AboutDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SimpleCalculatorMVVM.Views.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAgAAAAAAAQgAAAAACAAAAAAIAIAABQAAICAAA=</HashCode>
       <FileName>Views\MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Interface Name="SimpleCalculatorMVVM.Models.Commands.ICalculatorCommand" Collapsed="true">
+  <Interface Name="SimpleCalculatorMVVM.Models.Adapters.IScientificCalculator">
+    <Position X="13.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAQAAAAAAAAAAAAAABAEAgAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Adapters\IScientificAdapter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SimpleCalculatorMVVM.Models.Commands.ICalculatorCommand">
     <Position X="12" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\Commands\ICalculatorCommand.cs</FileName>
+      <FileName>Models\Commands\ICalculatorCommand.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
